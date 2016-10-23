@@ -3,7 +3,6 @@ $(document).ready(function() {
     /**
      * fix navbar after scrolling down
      */
-
     var $pageNav = $("#navbar");
     var navigationOffset = $pageNav.offset();
 
@@ -44,6 +43,7 @@ $(document).ready(function() {
 
     }
 
+
     /**
      * animate after scrolling down
     //  */
@@ -55,6 +55,30 @@ $(document).ready(function() {
 
             $(document).unbind('scroll');
         }
+    });
+
+
+    $(".zz").each(function() {
+        $this = $(this);
+        var $number = $this.find(".statistic-counter");
+        var value = $number.text();
+        $number.text("0");
+        $this.one("inview", function() {
+            $({
+                count: 0
+            }).animate({
+                count: value
+            }, {
+                duration: 4500,
+                step: function(now) {
+                    if (value.slice(-1) == "%") {
+                        $number.text(Math.round(now) + "%");
+                    } else {
+                        $number.text(Math.round(now));
+                    }
+                }
+            });
+        });
     });
 
 
